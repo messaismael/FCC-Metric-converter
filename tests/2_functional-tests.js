@@ -38,19 +38,18 @@ suite('Functional Tests', function() {
         .get('/api/convert')
         .query({input: '32g'})
         .end(function(err,res){
-          assert.equal(res.status, 200)
-          assert.equal(res.body.result, {"error":"invalid unit"});
+          assert.equal(res.body.result.error, 'invalid unit');
           done();
         })
       });
       
-      test('Convert 3/7.2/4kg (invalid number)', function(done) {
+      test('Convert 3/7..2/4kg (invalid number)', function(done) {
         chai.request(server)
           .get("/api/convert")
-          .query({input: "3/7.2/4kg"})
+          .query({input: "3/7..2/4kg"})
           .end(function(err, res){
             assert.equal(res.status, 200)
-            assert.equal(res.body.result, {"error":"invalid unit"});
+            assert.equal(res.body.result.error, "invalid number");
             done();
           })
       });  
@@ -58,10 +57,10 @@ suite('Functional Tests', function() {
       test('Convert 3/7.2/4kilomegagram (invalid number and unit)', function(done) {
         chai.request(server)
           .get("/api/convert")
-          .query({input: "3/7.2/4kg"})
+          .query({input: "7...25kilomegagram"})
           .end(function(err, res){
             assert.equal(res.status, 200)
-            assert.equal(res.body.result, {"error":"invalid unit"});
+            assert.equal(res.body.result.error, "invalid number and unit");
             done();
           })
 
@@ -70,12 +69,12 @@ suite('Functional Tests', function() {
       test('Convert kg (no number)', function(done) {
         chai.request(server)
           .get("/api/convert")
-          .query({input: "3/7.2/4kg"})
+          .query({input: "kg"})
           .end(function(err, res){
             assert.equal(res.status, 200)
             assert.equal(res.body.result.initNum, 1);
             assert.equal(res.body.result.initUnit, 'kg');
-            assert.approximately(res.body.result.returnNum, 2.2046, 0.1);
+            assert.approximately(res.body.result.returnNum, 2.20462, 0.1);
             assert.equal(res.body.result.returnUnit, 'lbs');
             done();
           })

@@ -18,37 +18,40 @@ suite('Unit Tests', function(){
     
     test('Whole number input', function(done) {
       var input = '32L';
-      assert.equal(convertHandler.getNum(input),32);
+      assert.equal(convertHandler.getNum(input), 32);
       done();
     });
     
     test('Decimal Input', function(done) {
       var input = '0.25km';
-      assert.equal(convertHandler.getNum(input), 0.25)
+      assert.equal(convertHandler.getNum(input), 0.25);
+      
       done();
     });
     
     test('Fractional Input', function(done) {
       var input = '25/45gal';
-      assert.equal(convertHandler.getNum(input),25/45)
+      assert.equal(convertHandler.getNum(input), 0.55556);
+      
       done();
     });
     
     test('Fractional Input w/ Decimal', function(done) {
       var input  = '6./0.2km'
-      assert.equal(convertHandler.getNum(input),6./0.2);
+      assert.equal(convertHandler.getNum(input), ' invalid number');
+      
       done();
     });
     
     test('Invalid Input (double fraction)', function(done) {
       var input = '20//4';
-      assert.equal(convertHandler.getNum(input),"invalid number");
+      assert.equal(convertHandler.getNum(input)," invalid number");
       done();
     });
     
     test('No Numerical Input', function(done) {
       var input = 'jaho';
-      assert.equal(convertHandler.getNum(input),"invalid number");
+      assert.equal(convertHandler.getNum(input),"1");
       done();
     }); 
     
@@ -59,7 +62,7 @@ suite('Unit Tests', function(){
     test('For Each Valid Unit Inputs', function(done) {
       var input = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
       input.forEach(function(ele) {
-        assert.equal(convertHandler.getUnit(input), ele.toLowerCase());
+        assert.equal(convertHandler.getUnit(ele), ele.toLowerCase());
       });
       done();
     });
@@ -67,7 +70,7 @@ suite('Unit Tests', function(){
     test('Unknown Unit Input', function(done) {
       var input =['ml', 'gall', 'kig', 'lmi', 'kmm'];
       input.forEach(function(ele){
-        assert.equal(convertHandler.getUnit(input),"invalid unit");
+        assert.equal(convertHandler.getUnit(ele), "invalid unit");
       })
       done();
     });  
@@ -105,7 +108,7 @@ suite('Unit Tests', function(){
     
     test('Gal to L', function(done) {
       var input = [5, 'gal'];
-      var expected = 18.9271;
+      var expected = 18.92705;
       assert.approximately(convertHandler.convert(input[0],input[1]),expected,0.1); //0.1 tolerance
       done();
     });
