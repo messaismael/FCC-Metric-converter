@@ -35,15 +35,18 @@ function ConvertHandler() {
       
       // verified if string contain space or two `.` into number  because `eval()` returns an  system erro with them
       var reg = /(\s[.][+*/-])|([+*/-][.]\s)|([.]\d{1,}[.])|([.]{2,})/g;
-      console.log((reg.test(result))? 'Number :'+' invalid number1':'Number :'+eval(result).toFixed(5));
-      if(re.test(result)){ 
+      
+      if (re.test(result)) { 
+        console.log((reg.test(result))? 'Number1 :'+' invalid number':'Number1 :'+Number(eval(result).toFixed(5)));
         return " invalid number";
-      }else{
-        return eval(result).toFixed(5);
+      }
+      else {
+        console.log((reg.test(result))? 'Number2 :'+' invalid number' : 'Number25 :' + Number(eval(result).toFixed(5)));  
+        return Number(eval(result).toFixed(5));
       }
     }
     else if(reg3.test(input)){
-      // when there no numbre but unity
+      // when there no number but unity
       let sig = input.match(/^((\s{1,})?([-+]{1,})?(\s{1,})?)/ig)
       console.log('Number :'+eval(sig[0]+'1'));
       return eval(sig[0]+'1')
@@ -102,33 +105,33 @@ function ConvertHandler() {
     switch(initUnit){
       case'gal':
         result = initNum * galToL;
-        console.log(result);
-        return result.toFixed(5);
+        console.log(result+'it is my');
+        return Number(result.toFixed(5));
         break;
       case'l':
         result = initNum / galToL;
         console.log(result);
-        return result.toFixed(5);
+        return Number(result.toFixed(5));
         break;
       case'lbs':
         result = initNum * lbsToKg;
         console.log(result);
-        return result.toFixed(5);
+        return Number(result.toFixed(5));
         break;
       case'kg':
         result = initNum / lbsToKg;
         console.log(result);
-        return result.toFixed(5);
+        return Number(result.toFixed(5));
         break;
       case'mi':
         result = initNum * miToKm;
         console.log(result);
-        return result.toFixed(5);
+        return Number(result.toFixed(5));
         break;
       case'km':
         result = initNum / miToKm;
         console.log(result);
-        return result.toFixed(5);
+        return Number(result.toFixed(5));
         break;
     }
   };
